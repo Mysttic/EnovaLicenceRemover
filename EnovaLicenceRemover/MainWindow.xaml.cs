@@ -208,7 +208,10 @@ namespace EnovaLicenceRemover
                 RegistryKey instanceKey = hklm.OpenSubKey(@"SOFTWARE\Microsoft\Microsoft SQL Server\Instance Names\SQL", false);
                 if (instanceKey != null)
                     foreach (var instanceName in instanceKey.GetValueNames())
-                        list.Add(".\\" + instanceName);
+                        if (instanceName == "MSSQLSERVER")
+                            list.Add(".\\");
+                        else
+                            list.Add(".\\" + instanceName);
             }
             return list;
         }
