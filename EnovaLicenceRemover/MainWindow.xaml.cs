@@ -36,10 +36,8 @@ namespace EnovaLicenceRemover
             WindowsAuthCB.IsChecked = Settings1.Default.WindowsAuth;
             SecurityCB.IsChecked = Settings1.Default.PersistSecurityInfo;
                         
-            if (InstanceCB.SelectedItem != null)
-            {
-                DatabaseCB.ItemsSource = GetDataBaseList();
-            }
+            if (InstanceCB.SelectedItem != null)            
+                DatabaseCB.ItemsSource = GetDataBaseList();            
         }
         /// <summary>
         /// Populate the DataSourceCB with allowed local server instances
@@ -54,16 +52,11 @@ namespace EnovaLicenceRemover
         /// <param name="e"></param>
         private void WindowsAuthCB_Checked(object sender, RoutedEventArgs e)
         {
-            if ((bool)WindowsAuthCB.IsChecked)
-            {
-                SQLUserTB.IsEnabled = false;
-                SQLPasswordPB.IsEnabled = false;
-            }
-            else
-            {
-                SQLUserTB.IsEnabled = true;
-                SQLPasswordPB.IsEnabled = true;
-            }
+           SQLUserTB.IsEnabled = SQLPasswordPB.IsEnabled = false;                
+        }
+        private void WindowsAuthCB_Unchecked(object sender, RoutedEventArgs e)
+        {
+            SQLUserTB.IsEnabled = SQLPasswordPB.IsEnabled = true;
         }
         /// <summary>
         /// Reconnects to the server
@@ -72,10 +65,9 @@ namespace EnovaLicenceRemover
         /// <param name="e"></param>
         private void RefreshBT_Click(object sender, RoutedEventArgs e)
         {
-            if (!String.IsNullOrEmpty(InstanceCB.SelectedItem.ToString()))
-            {
-                DatabaseCB.ItemsSource = GetDataBaseList();
-            }
+            if (InstanceCB.SelectedItem != null)
+                if (!String.IsNullOrEmpty(InstanceCB.SelectedItem.ToString()))            
+                    DatabaseCB.ItemsSource = GetDataBaseList();            
         }
         /// <summary>
         /// Primary event that does the job
@@ -108,8 +100,10 @@ namespace EnovaLicenceRemover
                 }
 
             }
-            catch (Exception ex) { }
-        }                
+            catch (Exception ex) { MessageBox.Show("Error occured\n" + ex.Message); }
+        }
+
+        
     }
 
     public partial class MainWindow : Window
@@ -140,15 +134,14 @@ namespace EnovaLicenceRemover
                     return x.CompareTo(y);
                 });
             }
-            catch
+            catch (Exception ex)
             {
                 DatabaseCB.ItemsSource= null;
                 LicenceTB.Text = string.Empty;
-                MessageBox.Show("Nie udało się zalogować do serwera");
+                MessageBox.Show("Failed to login to the server\n" + ex.Message);
             }
             return list;
         }
-
         /// <summary>
         /// Creates connection with @dataSource and database named @DataBaseName
         /// Depending on @windowsAuth, it using Integrated Security or SQL Credentials 
@@ -162,8 +155,7 @@ namespace EnovaLicenceRemover
 
                 try
                 {
-                    SqlConnection conn = new SqlConnection(@"Data Source=" + InstanceCB.Text + ";Initial Catalog=" + DataBaseName + ";Integrated Security=True;");
-                    return conn;
+                    return new SqlConnection(@"Data Source=" + InstanceCB.Text + ";Initial Catalog=" + DataBaseName + ";Integrated Security=True;");
                 }
                 catch { return null; }
             }
@@ -171,8 +163,7 @@ namespace EnovaLicenceRemover
             {
                 try
                 {
-                    SqlConnection conn = new SqlConnection(@"Data Source=" + InstanceCB.Text + ";Initial Catalog=" + DataBaseName + ";Persist Security Info=" + (bool)SecurityCB.IsChecked + ";User ID=" + SQLUserTB.Text + ";Password=" + SQLPasswordPB.Password+ "");
-                    return conn;
+                    return new SqlConnection(@"Data Source=" + InstanceCB.Text + ";Initial Catalog=" + DataBaseName + ";Persist Security Info=" + (bool)SecurityCB.IsChecked + ";User ID=" + SQLUserTB.Text + ";Password=" + SQLPasswordPB.Password+ "");
                 }
                 catch { return null; }
             }
@@ -191,9 +182,9 @@ namespace EnovaLicenceRemover
                     SqlCommand cmd = new SqlCommand("DELETE FROM dbo.SystemInfos WHERE Ident = 10", connection);
                     cmd.ExecuteNonQuery();
                 }
-                MessageBox.Show("Wykonano!");
+                MessageBox.Show("Done");
             }
-            catch (Exception ex) { MessageBox.Show("Błąd!\n" + ex); }
+            catch (Exception ex) { MessageBox.Show("Error occured\n" + ex); }
         }
         /// <summary>
         /// Depending on the version of the system, it retrieves information about SQL server instances from the registry
