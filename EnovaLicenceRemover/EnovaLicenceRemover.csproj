@@ -5,10 +5,55 @@
     <TargetFramework>net5.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <BaseOutputPath>..\bin</BaseOutputPath>
   </PropertyGroup>
 
+	<PropertyGroup>
+		<Obfuscate>true</Obfuscate>
+		<ConfuserReplaceOutput>true</ConfuserReplaceOutput>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<SignAssembly>true</SignAssembly>
+		<AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)EnovaLicenceRemover.snk</AssemblyOriginatorKeyFile>
+		<PackageIcon>mysttic.ico</PackageIcon>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<AssemblyVersion></AssemblyVersion>
+		<FileVersion></FileVersion>
+	</PropertyGroup>
+
   <ItemGroup>
+    <Compile Remove="bin\**" />
+    <EmbeddedResource Remove="bin\**" />
+    <None Remove="bin\**" />
+    <Page Remove="bin\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="mysttic.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="C:\Users\mystt\Desktop\mysttic.ico">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Confuser.MSBuild" Version="1.6.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="mysttic.ico" />
   </ItemGroup>
 
   <ItemGroup>

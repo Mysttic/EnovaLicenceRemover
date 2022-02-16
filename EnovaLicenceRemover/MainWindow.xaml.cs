@@ -54,6 +54,11 @@ namespace EnovaLicenceRemover
         {
            SQLUserTB.IsEnabled = SQLPasswordPB.IsEnabled = false;                
         }
+        /// <summary>
+        /// Controls the visibility of items and sets a value for @windowsAuth
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void WindowsAuthCB_Unchecked(object sender, RoutedEventArgs e)
         {
             SQLUserTB.IsEnabled = SQLPasswordPB.IsEnabled = true;
@@ -101,9 +106,7 @@ namespace EnovaLicenceRemover
 
             }
             catch (Exception ex) { MessageBox.Show("Error occured\n" + ex.Message); }
-        }
-
-        
+        }                
     }
 
     public partial class MainWindow : Window

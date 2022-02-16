@@ -1,5 +1,11 @@
 using System.Windows;
 
+#if RELEASE
+using System.Reflection;
+//[assembly: Obfuscation(Exclude = false, Feature = "preset(none);+anti ildasm;+anti tamper;+constants;+ctrl flow;+anti dump;+anti debug;+ref proxy;")]
+[assembly: Obfuscation(Exclude = false, Feature = "preset(none);+anti ildasm;+anti tamper;+constants;+ctrl flow;+anti dump;+anti debug;+ref proxy;+rename(mode=letters,flatten=false);")]
+#endif
+
 [assembly: ThemeInfo(
     ResourceDictionaryLocation.None, //where theme specific resource dictionaries are located
                                      //(used if a resource is not found in the page,
