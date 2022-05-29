@@ -1,5 +1,5 @@
 # EnovaLicenceRemover
-The application allows you to delete information about the license in the indicated enova database.
+This application allows you to delete information about the license in the indicated enova database.
 
 ![image](https://user-images.githubusercontent.com/19372942/154313433-b892a3c4-492a-447a-a1fe-9e80e19e4ef9.png)
 
