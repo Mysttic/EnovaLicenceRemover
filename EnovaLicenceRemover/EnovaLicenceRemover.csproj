@@ -14,8 +14,6 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<SignAssembly>true</SignAssembly>
-		<AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)EnovaLicenceRemover.snk</AssemblyOriginatorKeyFile>
 		<PackageIcon>mysttic.ico</PackageIcon>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<AssemblyVersion></AssemblyVersion>
@@ -57,17 +55,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Settings1.Designer.cs">
+    <Compile Update="Properties\Settings.Designer.cs">
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <AutoGen>True</AutoGen>
-      <DependentUpon>Settings1.settings</DependentUpon>
+      <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Settings1.settings">
+    <None Update="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings1.Designer.cs</LastGenOutput>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
 
