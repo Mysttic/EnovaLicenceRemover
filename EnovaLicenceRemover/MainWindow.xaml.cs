@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using EnovaLicenceRemover.Properties;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -30,11 +31,11 @@ namespace EnovaLicenceRemover
 
         private void Window_Initialized(object sender, EventArgs e)
         {
-            InstanceCB.SelectedItem = Settings1.Default.DataSource;
-            SQLUserTB.Text = Settings1.Default.User;
-            SQLPasswordPB.Password = Settings1.Default.Password;
-            WindowsAuthCB.IsChecked = Settings1.Default.WindowsAuth;
-            SecurityCB.IsChecked = Settings1.Default.PersistSecurityInfo;
+            InstanceCB.SelectedItem = Settings.Default.DataSource;
+            SQLUserTB.Text = Settings.Default.User;
+            SQLPasswordPB.Password = Settings.Default.Password;
+            WindowsAuthCB.IsChecked = Settings.Default.WindowsAuth;
+            SecurityCB.IsChecked = Settings.Default.PersistSecurityInfo;
                         
             if (InstanceCB.SelectedItem != null)            
                 DatabaseCB.ItemsSource = GetDataBaseList();            
